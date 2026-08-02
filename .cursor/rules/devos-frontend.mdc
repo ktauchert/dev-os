@@ -1,0 +1,17 @@
+---
+description: DevOS React UI — feature modules, shadcn, TanStack Query
+globs: frontend/**/*.{ts,tsx}
+alwaysApply: false
+---
+
+# Frontend
+
+Follow [docs/frontend-architecture.md](../../docs/frontend-architecture.md), [docs/tech-stack.md](../../docs/tech-stack.md), and [docs/ui-theme.md](../../docs/ui-theme.md). For theme work, use skill **devos-ui-theme** (`.cursor/skills/devos-ui-theme/`).
+
+- Colocate feature code under `src/features/{auth,projects,work,sdlc,ai}/`.
+- Shared primitives in `src/components/ui/` (shadcn).
+- Server state via TanStack Query; avoid duplicating API data in global client state.
+- Prefer accessible, structured UI (boards, forms, wizards) over chat-only flows ([docs/vision.md](../../docs/vision.md)).
+- **Colors:** semantic tokens only in features; accent themes live in `src/styles/themes.css`.
+
+You may implement UI end-to-end when asked; keep components small and typed.

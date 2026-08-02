@@ -4,20 +4,28 @@ An AI-assisted software development platform that supports developers throughout
 
 ## Status
 
-🚧 In active development
+In active development — Milestone 1 (local foundation). See [docs/plan.md](docs/plan.md).
 
 ## Goals
 
-- Build a real SaaS product
-- Learn React through practice
-- Learn AWS through practical architecture
-- Improve software architecture skills
-- Document important architectural decisions
+- Ship a useful MVP ([docs/mvp.md](docs/mvp.md))
+- Learn React and AWS by building the real architecture
+- Keep the codebase simple and maintainable
 
-## Tech Stack
+## Tech stack
 
-TBD
+[docs/tech-stack.md](docs/tech-stack.md)
 
 ## Documentation
 
-/docs
+| | |
+| --- | --- |
+| Index | [docs/README.md](docs/README.md) |
+| Vision | [docs/vision.md](docs/vision.md) |
+| MVP scope | [docs/mvp.md](docs/mvp.md) |
+| Plan / milestones | [docs/plan.md](docs/plan.md) |
+| AI pair programming | [AGENTS.md](AGENTS.md) |
+
+## Repo layout
+
+`frontend/` · `backend/` · `infrastructure/` · `docs/`

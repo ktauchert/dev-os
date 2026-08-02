@@ -104,8 +104,6 @@ The project is successful if:
 
 ---
 
-# Current Stage
+# Current stage
 
-The project is currently in the discovery and foundation phase.
-
-The immediate focus is understanding the problem space, defining the MVP, and building a solid architectural foundation before implementation begins.
+Foundation docs are in place (Milestone 0 ✅). Next: **Milestone 1 – Local foundation** — see [plan.md](./plan.md).

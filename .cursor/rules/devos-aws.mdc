@@ -1,0 +1,15 @@
+---
+description: AWS learning mode — infra and backend on DevOS
+globs: "**/{infrastructure,backend}/**"
+alwaysApply: false
+---
+
+# AWS & backend
+
+Follow [docs/aws-architecture.md](../../docs/aws-architecture.md) and [docs/plan.md](../../docs/plan.md).
+
+- One service or integration at a time.
+- Explain **IAM** before policy or role changes; link official AWS docs.
+- After changes: short verification checklist. No secrets in git.
+
+Default: guide the human; large infra diffs only when explicitly requested.
