@@ -1,14 +1,17 @@
 # Backend
 
-API and Lambda logic for DevOS. See [architecture.md](../docs/architecture.md) and [aws-architecture.md](../docs/aws-architecture.md).
+API and Lambda logic for DevOS.
+
+**Contract:** [docs/api-projects.md](../docs/api-projects.md)  
+**When to build/deploy:** Milestone 2 in [docs/plan.md](../docs/plan.md)  
+**Workflow (IAM, CORS, order):** [docs/aws-dev-workflow.md](../docs/aws-dev-workflow.md)  
+**Service map:** [docs/aws-architecture.md](../docs/aws-architecture.md)
 
 ## Current state
 
-The **HTTP contract** for projects is defined in [docs/api-projects.md](../docs/api-projects.md). The frontend implements the client; **MSW** implements the server in dev/test ([docs/api-mocking.md](../docs/api-mocking.md)).
+The frontend client and **MSW** implement the projects contract locally ([docs/api-mocking.md](../docs/api-mocking.md)). This package is where **API Gateway + Lambda** logic lives when you stand up the dev stack—no requirement to wait for S3/CloudFront or Cognito (those are Milestones 3–4).
 
-No deployed Lambda yet — Milestone 4.
-
-## Suggested layout (when you implement)
+## Suggested layout
 
 ```text
 backend/
@@ -18,10 +21,21 @@ backend/
 └── src/
     ├── handlers/
     │   └── projects.ts      # API Gateway entrypoints
-    ├── domain/              # same rules as frontend domain (or shared package later)
+    ├── domain/              # align with frontend domain (or shared package later)
     └── lib/
         ├── response.ts
         └── dynamo.ts
 ```
 
-Implement handlers to match `docs/api-projects.md` so the SPA only changes `VITE_API_BASE_URL`.
+## Implementing Milestone 2
+
+1. DynamoDB table (dev) — keys per [workflow sketch](../docs/aws-dev-workflow.md#dynamodb-sketch-projects-mvp).
+2. Handlers return the same status codes and JSON as `api-projects.md`.
+3. Wire API Gateway routes to Lambda; enable CORS for `http://localhost:3000`.
+4. Verify with `curl`, then frontend `VITE_MOCK_API=false` + `VITE_API_BASE_URL`.
+
+Copy or share domain rules from `frontend/src/features/projects/domain/` so MSW, tests, and Lambda stay aligned.
+
+## Milestone 3
+
+Add JWT validation via API Gateway authorizer; read user id in Lambda; partition DynamoDB by user. Update `api-projects.md` auth section.

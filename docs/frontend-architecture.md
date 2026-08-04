@@ -78,4 +78,4 @@ Thin routes: import from `features/*`; no business logic in route files.
 - TanStack Query hooks in `features/projects/queries.ts`
 - Shell sync: `projectToShell()` when a project is selected on `/projects`
 
-Real Lambda replaces MSW when `VITE_API_BASE_URL` is set (Milestone 4).
+Real API Gateway + Lambda replaces MSW when `VITE_MOCK_API=false` and `VITE_API_BASE_URL` is set (Milestone 2). See [aws-dev-workflow.md](./aws-dev-workflow.md).

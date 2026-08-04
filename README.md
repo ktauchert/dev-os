@@ -4,12 +4,12 @@ An AI-assisted software development platform that supports developers throughout
 
 ## Status
 
-In active development — **Milestone 1** (shell + local projects UI). Next: work board UI or **Milestone 2** (AWS). See [docs/plan.md](docs/plan.md).
+In active development — **Milestone 1** largely complete (SPA + projects + MSW). **Next AWS focus: Milestone 2** (dev API on Lambda + DynamoDB + API Gateway). See [docs/plan.md](docs/plan.md) and [docs/aws-dev-workflow.md](docs/aws-dev-workflow.md).
 
 ## Goals
 
 - Ship a useful MVP ([docs/mvp.md](docs/mvp.md))
-- Learn React and AWS by building the real architecture
+- Deepen TanStack/Vite patterns and learn AWS by building the real architecture
 - Keep the codebase simple and maintainable
 
 ## Tech stack
@@ -21,6 +21,7 @@ In active development — **Milestone 1** (shell + local projects UI). Next: wor
 | | |
 | --- | --- |
 | Index | [docs/README.md](docs/README.md) |
+| **AWS workflow** | [docs/aws-dev-workflow.md](docs/aws-dev-workflow.md) |
 | Vision | [docs/vision.md](docs/vision.md) |
 | MVP scope | [docs/mvp.md](docs/mvp.md) |
 | Plan / milestones | [docs/plan.md](docs/plan.md) |
@@ -36,3 +37,5 @@ From the repo root (after `npm install` in `frontend/`):
 ```bash
 npm run dev
 ```
+
+To hit a **dev API** instead of MSW, see [docs/aws-dev-workflow.md](docs/aws-dev-workflow.md#switching-off-msw).

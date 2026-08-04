@@ -1,8 +1,20 @@
 # Plan
 
-Build DevOS as a real SaaS while learning React, AWS, and architecture in practice. Use this file as the **single checklist** for where we are in the lifecycle.
+Build DevOS as a real SaaS while deepening the **TanStack + Vite** frontend stack, learning **AWS**, and practicing architecture on a real product. Use this file as the **single checklist** for where we are in the lifecycle.
 
 **Scope gate:** [mvp.md](./mvp.md) — if it is not in the MVP, do not build it unless this plan explicitly says post-MVP.
+
+**AWS path:** Milestone order and rationale live in [aws-dev-workflow.md](./aws-dev-workflow.md). The frontend can run ahead on MSW; the backend catches up per contract.
+
+---
+
+## Where we are now
+
+| Area | Status |
+| --- | --- |
+| **Milestone 1** | Mostly complete — SPA, shell, projects UI, MSW, Vitest |
+| **Your next AWS focus** | **Milestone 2** — dev API (Lambda + DynamoDB + API Gateway) for [api-projects.md](./api-projects.md) |
+| **Frontend (optional parallel)** | M1 leftovers: `work` / `sdlc` / `auth` route stubs |
 
 ---
 
@@ -13,59 +25,69 @@ Build DevOS as a real SaaS while learning React, AWS, and architecture in practi
 
 ---
 
-## Milestone 1 – Local foundation
+## Milestone 1 – Contract & local application
 
-**Goal:** Run DevOS locally with a clean dev setup.
+**Goal:** Runnable SPA and documented HTTP contracts; MSW implements the server locally so UI work does not wait on AWS.
 
-**Status:** In progress — shell + projects UI + MSW API; work/sdlc routes next.
+**Why first:** Same as contract-first API design—stable `fetch` surface, fast local SPA feedback, tests without cloud credentials.
 
-- [x] React app (Vite, TypeScript, TanStack Query, shadcn toolchain)
+- [x] Vite SPA (React, TypeScript, TanStack Query, shadcn toolchain)
 - [x] TanStack Router + [app shell](ui-ux.md) (`features/shell/`)
 - [x] UI theme ([ui-theme.md](./ui-theme.md))
-- [x] `features/projects/` — split workspace; HTTP + MSW + Vitest ([api-mocking.md](./api-mocking.md), [testing.md](./testing.md))
-- [ ] Backend skeleton (contract in [api-projects.md](./api-projects.md); [backend/README.md](../backend/README.md))
-- [ ] `features/work/`, `features/sdlc/`, `features/auth/` (stubs / next)
+- [x] `features/projects/` — workspace; HTTP client + MSW + Vitest ([api-mocking.md](./api-mocking.md), [testing.md](./testing.md), [api-projects.md](./api-projects.md))
+- [ ] `backend/` package skeleton (handlers, types; **no deploy yet** — [backend/README.md](../backend/README.md))
+- [ ] `features/work/`, `features/sdlc/`, `features/auth/` (thin routes / placeholders)
 - [x] Local dev from repo root (`npm run dev` → frontend on port 3000)
 
-**Learning:** React, TypeScript, project layout ([frontend-architecture.md](./frontend-architecture.md)).
+**Skill focus:** TanStack Router & Query, Vite SPA layout, shadcn/ui, contract-first HTTP clients ([frontend-architecture.md](./frontend-architecture.md)).
 
 ---
 
-## Milestone 2 – Cloud foundation
+## Milestone 2 – Dev API on AWS (projects)
 
-**Goal:** Host the app on AWS.
+**Goal:** First real serverless stack in a **dev** account: same REST contract as MSW, callable from localhost.
 
-- [ ] AWS account and IAM basics
-- [ ] S3 + CloudFront for the SPA
-- [ ] Deployment path (manual or CI)
-- [ ] Environment configuration; no secrets in git
+**Why before hosting or Cognito:** Learn Lambda + DynamoDB + API Gateway on one vertical slice; debug with `curl` and `VITE_MOCK_API=false` without CloudFront or JWT complexity. See [aws-dev-workflow.md](./aws-dev-workflow.md#milestone-2--dev-api-checklist).
 
-**Learning:** IAM, S3, CloudFront, CloudWatch ([aws-architecture.md](./aws-architecture.md)).
+- [ ] AWS account hygiene (billing alert, least-privilege IAM user/role for dev)
+- [ ] DynamoDB table (dev) — access pattern for projects ([workflow sketch](./aws-dev-workflow.md#dynamodb-sketch-projects-mvp))
+- [ ] Lambda in `backend/` implementing [api-projects.md](./api-projects.md)
+- [ ] API Gateway (dev stage) + CORS for `http://localhost:3000`
+- [ ] Verified: `curl` + SPA against dev URL (MSW off)
+- [ ] (Optional) SAM/CDK in `infrastructure/` for repeatable dev stack
 
----
-
-## Milestone 3 – Authentication
-
-**Goal:** Users can sign in and access their own data.
-
-- [ ] Cognito user pool (or chosen auth)
-- [ ] Login / logout
-- [ ] Protected routes in the SPA
-- [ ] Session / JWT handling toward API Gateway
-
-**Learning:** Cognito, auth flow, protected React routes.
+**Skill focus:** IAM, Lambda, DynamoDB, API Gateway, CORS, CloudWatch logs.
 
 ---
 
-## Milestone 4 – Projects
+## Milestone 3 – Authentication & per-user data
 
-**Goal:** Create and manage software projects.
+**Goal:** Cognito sign-in; API enforces identity; projects scoped to the signed-in user.
 
-- [x] **UI + client:** project rail, forms, TanStack Query → HTTP ([projects-ux.md](./projects-ux.md))
-- [x] **Mock API:** MSW handlers match [api-projects.md](./api-projects.md)
-- [ ] **Backend:** Lambda + DynamoDB implement same contract
+**Why after dev API:** Handlers and DynamoDB patterns work before adding authorizer context and `userId` partitions.
 
-**Learning:** Forms, validation, mutations and cache updates.
+- [ ] Cognito user pool + app client (SPA)
+- [ ] Login / logout; protected routes in the SPA
+- [ ] Bearer JWT on API requests; API Gateway JWT authorizer
+- [ ] Lambda uses caller identity; update storage model (no cross-user access)
+- [ ] Update [api-projects.md](./api-projects.md) for auth (401, ownership)
+
+**Skill focus:** Cognito, JWT flow, protected routes (TanStack Router), secure serverless APIs.
+
+---
+
+## Milestone 4 – Host the SPA (S3 + CloudFront)
+
+**Goal:** Public HTTPS URL for the built React app, configured to call the **dev/prod** API.
+
+**Why after dev API (and ideally after M3 for a “real” product):** Static hosting does not provide compute or data; production needs a stable API URL and CORS for the CloudFront origin.
+
+- [ ] S3 bucket for `frontend/dist` (private; CloudFront OAC/OAI)
+- [ ] CloudFront distribution + SPA routing
+- [ ] Build-time env (`VITE_API_BASE_URL`, `VITE_MOCK_API=false`)
+- [ ] Deployment path (manual or CI); no secrets in git
+
+**Skill focus:** S3, CloudFront, cache invalidation, environment configuration ([aws-architecture.md](./aws-architecture.md)).
 
 ---
 
@@ -73,11 +95,13 @@ Build DevOS as a real SaaS while learning React, AWS, and architecture in practi
 
 **Goal:** Plan and track work inside a project.
 
+**Per-resource loop:** `docs/api-*.md` → MSW → Lambda → UI ([aws-dev-workflow.md](./aws-dev-workflow.md#adding-a-new-resource-repeatable)).
+
 - [ ] Epics, features, tasks (domain hierarchy in [architecture.md](./architecture.md))
 - [ ] Kanban board and status workflow
 - [ ] Optimistic updates where it helps UX
 
-**Learning:** Server state, UI composition for boards.
+**Skill focus:** TanStack Query server state, UI composition for boards, more DynamoDB access patterns.
 
 ---
 
@@ -85,11 +109,11 @@ Build DevOS as a real SaaS while learning React, AWS, and architecture in practi
 
 **Goal:** Show where the project is in the SDLC and what comes next.
 
-- [ ] SDLC phases per project
+- [ ] SDLC phases per project (extend API + UI beyond today’s fields)
 - [ ] Progress visualization
 - [ ] Workflow transitions / project health (minimal but useful)
 
-**Learning:** Workflow and domain modeling.
+**Skill focus:** Workflow and domain modeling.
 
 ---
 
@@ -101,7 +125,7 @@ Build DevOS as a real SaaS while learning React, AWS, and architecture in practi
 - [ ] Next suggested step, daily focus, task refinement
 - [ ] UI that complements structured workflows ([vision.md](./vision.md))
 
-**Learning:** Bedrock, context assembly, streaming if needed.
+**Skill focus:** Bedrock, context assembly, streaming if needed.
 
 ---
 
@@ -111,7 +135,7 @@ Build DevOS as a real SaaS while learning React, AWS, and architecture in practi
 
 - [ ] Error handling and UX pass
 - [ ] Performance sanity check
-- [ ] Tests where they catch real regressions
+- [ ] Tests where they catch real regressions (MSW + optional dev API smoke)
 - [ ] README / run notes for deploy and local dev
 
 ---

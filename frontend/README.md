@@ -2,7 +2,7 @@
 
 Vite + TanStack Router + Query + shadcn/ui.
 
-**Docs:** [../docs/plan.md](../docs/plan.md) · [../docs/frontend-architecture.md](../docs/frontend-architecture.md) · [../docs/api-mocking.md](../docs/api-mocking.md) · [../docs/testing.md](../docs/testing.md) · [../AGENTS.md](../AGENTS.md)
+**Docs:** [../docs/plan.md](../docs/plan.md) · [../docs/aws-dev-workflow.md](../docs/aws-dev-workflow.md) · [../docs/frontend-architecture.md](../docs/frontend-architecture.md) · [../docs/api-mocking.md](../docs/api-mocking.md) · [../docs/testing.md](../docs/testing.md) · [../AGENTS.md](../AGENTS.md)
 
 ## Run
 

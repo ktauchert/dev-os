@@ -1,9 +1,8 @@
 # API mocking (MSW)
 
-The frontend talks to a **REST API** over HTTP. Until API Gateway + Lambda exist, **[MSW](https://mswjs.io/)** (Mock Service Worker) implements the same routes in development and tests.
+The frontend talks to a **REST API** over HTTP. **[MSW](https://mswjs.io/)** implements the same routes in development and tests when API Gateway + Lambda are not in use—or when you choose not to call AWS on every `npm run dev`.
 
-Contract reference: [api-projects.md](./api-projects.md).  
-Production map: [aws-architecture.md](./aws-architecture.md).
+**This is not the long-term server.** The contract is [api-projects.md](./api-projects.md); AWS implements it in Milestone 2+. Workflow: [aws-dev-workflow.md](./aws-dev-workflow.md).
 
 ---
 
@@ -12,12 +11,13 @@ Production map: [aws-architecture.md](./aws-architecture.md).
 | Environment | Mock API |
 | --- | --- |
 | `npm run dev` | **On** by default (`MswProvider` + service worker in `public/`) |
-| `npm run build` / production | **Off** — set `VITE_API_BASE_URL` to the real API |
+| `npm run dev` + real dev API | **Off** — `VITE_MOCK_API=false` and `VITE_API_BASE_URL` set |
+| `npm run build` / production | **Off** — `VITE_API_BASE_URL` points at API Gateway |
 | `npm test` | **On** via `msw/node` (`src/mocks/server.ts`) |
 
 Override with `frontend/.env.local`:
 
-- `VITE_MOCK_API=false` — call real API in dev (needs `VITE_API_BASE_URL`)
+- `VITE_MOCK_API=false` — call dev API (needs `VITE_API_BASE_URL`)
 - `VITE_MOCK_API=true` — force mock in production builds (rare; demos only)
 
 ---
@@ -40,22 +40,27 @@ frontend/src/
 
 **Rule:** UI and TanStack Query only import `features/projects/api/*`, never the mock DB.
 
-Lambda later should reuse **domain** rules from a shared package or copy the same shapes; handlers today mirror the intended Lambda behavior.
+Lambda should reuse **domain** rules from a shared package or copy the same shapes; MSW handlers mirror intended Lambda behavior.
 
 ---
 
 ## Adding a new resource
 
+Follow the loop in [aws-dev-workflow.md](./aws-dev-workflow.md#adding-a-new-resource-repeatable):
+
 1. Document routes in `docs/api-*.md`.
 2. Add `features/<area>/api/*.ts` using `api-client`.
 3. Add MSW handlers + in-memory DB (or extend existing store).
-4. Add Vitest tests under `*.test.ts` next to API or domain code.
+4. Add Vitest tests next to API or domain code.
+5. Implement Lambda + DynamoDB when the contract stabilizes.
 
 ---
 
-## Replacing MSW with AWS
+## Using the dev API instead of MSW
 
-1. Deploy API Gateway + Lambda with the **same paths and JSON** as [api-projects.md](./api-projects.md).
-2. Set `VITE_API_BASE_URL` in the deployed SPA environment.
-3. Build with `VITE_MOCK_API=false` (default in production).
-4. Remove or keep MSW for local dev only.
+1. Deploy API Gateway + Lambda with the **same paths and JSON** as [api-projects.md](./api-projects.md) (Milestone 2).
+2. In `frontend/.env.local`: `VITE_MOCK_API=false`, `VITE_API_BASE_URL=https://….execute-api….amazonaws.com/dev`.
+3. Confirm CORS allows `http://localhost:3000`.
+4. Keep MSW for Vitest; optional smoke tests against dev API later ([testing.md](./testing.md)).
+
+Production builds: `VITE_MOCK_API=false` and API URL set at build time (Milestone 4).

@@ -1,11 +1,12 @@
 # DevOS — pair programmer
 
-You help build **DevOS** (AI-assisted SDLC platform). The owner learns **AWS by doing** (docs, console/CLI, their own IaC/Lambda). You **implement frontend UI** when asked.
+You help build **DevOS** (AI-assisted SDLC platform). The owner learns **AWS by doing** (docs, console/CLI, their own IaC/Lambda) and deepens **TanStack + Vite** patterns on the frontend. You **implement frontend UI** when asked.
 
 ## Read first
 
 - Scope: [docs/mvp.md](docs/mvp.md)
 - Progress: [docs/plan.md](docs/plan.md) — state which milestone you are working on
+- **AWS order & why:** [docs/aws-dev-workflow.md](docs/aws-dev-workflow.md)
 - Why: [docs/vision.md](docs/vision.md)
 - Index: [docs/README.md](docs/README.md)
 - Architecture: [docs/architecture.md](docs/architecture.md), [docs/tech-stack.md](docs/tech-stack.md), [docs/frontend-architecture.md](docs/frontend-architecture.md), [docs/aws-architecture.md](docs/aws-architecture.md)
@@ -17,10 +18,10 @@ You help build **DevOS** (AI-assisted SDLC platform). The owner learns **AWS by 
 | Area | Owner | You |
 | --- | --- | --- |
 | AWS, IAM, infra, Lambda, DynamoDB | Implements; reads AWS docs | Explain, stepwise plan, official doc links, IAM review, verify checklist |
-| **Frontend** | Reviews UX, learns from your code | Vite, React, TS, Tailwind, shadcn/ui, TanStack Query, `frontend/src/features/`; [docs/ui-theme.md](docs/ui-theme.md), [docs/ui-ux.md](docs/ui-ux.md), skill `devos-ui-theme` |
+| **Frontend** | Reviews UX; applies React background to TanStack Router/Query & Vite | Vite, React, TS, Tailwind, shadcn/ui, TanStack Query, `frontend/src/features/`; [docs/ui-theme.md](docs/ui-theme.md), [docs/ui-ux.md](docs/ui-ux.md), skill `devos-ui-theme` |
 | Scope | Prioritizes | Stay on [docs/plan.md](docs/plan.md); defer post-MVP |
 
-Default: no large surprise AWS stacks—incremental changes unless they say to apply it.
+Default: no large surprise AWS stacks—incremental changes unless they say to apply it. Follow milestone order in [aws-dev-workflow.md](docs/aws-dev-workflow.md) unless the user chooses a parallel track (e.g. more UI while they build M2).
 
 ## AWS help format
 

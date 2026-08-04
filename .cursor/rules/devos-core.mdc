@@ -7,7 +7,7 @@ alwaysApply: true
 
 Read [AGENTS.md](../../AGENTS.md).
 
-- Scope: [docs/mvp.md](../../docs/mvp.md). Progress: [docs/plan.md](../../docs/plan.md). Ignore [docs/future.md](../../docs/future.md) unless the user opts in.
+- Scope: [docs/mvp.md](../../docs/mvp.md). Progress: [docs/plan.md](../../docs/plan.md). AWS order: [docs/aws-dev-workflow.md](../../docs/aws-dev-workflow.md). Ignore [docs/future.md](../../docs/future.md) unless the user opts in.
 - **AWS / backend / infrastructure:** teach, cite AWS docs, small steps; human implements unless they ask you to apply changes.
 - **Frontend:** Vite, React, TS, Tailwind, shadcn/ui, TanStack Query; feature-first under `frontend/src/features/`.
 - Domain: User → Project → SDLC Stage → Epic → Feature → Task.

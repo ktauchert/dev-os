@@ -4,7 +4,7 @@ How we test the DevOS frontend.
 
 Stack: **[Vitest](https://vitest.dev/)** + **[Testing Library](https://testing-library.com/react)** + **[MSW](https://mswjs.io/)** for HTTP.
 
-Related: [api-mocking.md](./api-mocking.md) · [frontend-architecture.md](./frontend-architecture.md).
+Related: [api-mocking.md](./api-mocking.md) · [aws-dev-workflow.md](./aws-dev-workflow.md) · [frontend-architecture.md](./frontend-architecture.md).
 
 ---
 
@@ -36,6 +36,8 @@ Add to root `package.json` when you want one command for CI at monorepo level.
 | **UI** | (add later) palette, forms | `*.test.tsx` with `render` + `userEvent` |
 
 Vitest setup: `src/test/setup.ts` — starts `msw/node`, resets `projects-db` after each test.
+
+**AWS:** Default CI does **not** call API Gateway (fast, no credentials). After Milestone 2, you may add an optional manual or scheduled smoke job against the **dev** API with `VITE_MOCK_API=false`.
 
 ---
 

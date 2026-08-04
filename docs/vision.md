@@ -74,13 +74,13 @@ The platform should encourage consistent progress through small achievable steps
 
 ---
 
-# Learning Goals
+# Skill development goals
 
 This project is intentionally built as a long-term engineering journey.
 
 During development the project should help improve practical knowledge in:
 
-* React
+* TanStack (Router, Query) and Vite SPA patterns (building on existing React experience)
 * AWS
 * Software Architecture
 * Cloud Architecture
@@ -88,7 +88,7 @@ During development the project should help improve practical knowledge in:
 * AI Integration
 * SaaS Development
 
-The learning process should naturally emerge from building a real product.
+Proficiency should naturally emerge from building a real product—not from tutorial detours.
 
 ---
 
@@ -106,4 +106,4 @@ The project is successful if:
 
 # Current stage
 
-Foundation docs (Milestone 0 ✅). **Milestone 1:** app shell (palette, status bar) and **projects** workspace with local persistence — see [plan.md](./plan.md), [projects-ux.md](./projects-ux.md).
+Foundation docs (Milestone 0 ✅). **Milestone 1** largely complete: app shell and **projects** workspace over HTTP + MSW. **Next:** Milestone 2 dev API on AWS — [aws-dev-workflow.md](./aws-dev-workflow.md), [plan.md](./plan.md), [projects-ux.md](./projects-ux.md).

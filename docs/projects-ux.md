@@ -42,7 +42,7 @@ Command palette lists projects and opens `/projects?project=<id>` or `?new=1`.
 4. **Setup checklist** — small fixed steps per project (not a multi-page wizard yet).  
 5. **Progress** in status bar: `Setup 2/4` + encouraging **next micro-step** (kaizen-style).
 
-Data: **MSW mock API** in dev/test ([api-mocking.md](./api-mocking.md)); real API at Milestone 4 ([api-projects.md](./api-projects.md)).
+Data: **MSW** in dev/test ([api-mocking.md](./api-mocking.md)); **dev API** on AWS at Milestone 2 ([api-projects.md](./api-projects.md), [aws-dev-workflow.md](./aws-dev-workflow.md)).
 
 ---
 
