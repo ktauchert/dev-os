@@ -12,8 +12,9 @@ export function buildNewProject(input: CreateProjectInput): Project {
   const now = new Date().toISOString()
   const name = input.name.trim()
   const description = input.description?.trim() ?? ''
-  const sdlcPhase = input.sdlcPhase ?? 'Discovery'
   const todayFocus = input.todayFocus?.trim() ?? ''
+  /** MVP: journeys always start at Discovery (docs/sdlc-ux.md). */
+  const sdlcPhase = 'Discovery' as const
 
   return {
     id: crypto.randomUUID(),
@@ -24,7 +25,6 @@ export function buildNewProject(input: CreateProjectInput): Project {
     setupSteps: createSetupSteps({
       name,
       description,
-      sdlcPhase,
       todayFocus,
     }),
     createdAt: now,
@@ -42,7 +42,7 @@ export function applyProjectPatch(current: Project, patch: ProjectPatch): Projec
 
   const setupSteps =
     patch.setupSteps ??
-    createSetupSteps({ name, description, sdlcPhase, todayFocus })
+    createSetupSteps({ name, description, todayFocus })
 
   return {
     ...current,

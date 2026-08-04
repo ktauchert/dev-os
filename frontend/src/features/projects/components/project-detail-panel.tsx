@@ -4,9 +4,7 @@ import { Button } from '#/components/ui/button'
 import {
   nextSetupHint,
   setupProgress,
-  SDLC_PHASES,
   type Project,
-  type SdlcPhase,
 } from '#/features/projects/types'
 import {
   useUpdateProject,
@@ -70,25 +68,16 @@ export function ProjectDetailPanel({ project }: ProjectDetailPanelProps) {
       <section className="mt-8">
         <h3 className="text-sm font-semibold text-foreground">Project fields</h3>
         <div className="mt-3 grid gap-3 text-sm">
-          <label className="flex flex-col gap-1">
+          <div className="flex flex-col gap-1">
             <span className="text-muted-foreground">SDLC phase</span>
-            <select
-              value={project.sdlcPhase}
-              onChange={(e) =>
-                update.mutate({
-                  id: project.id,
-                  patch: { sdlcPhase: e.target.value as SdlcPhase },
-                })
-              }
-              className="rounded-md border border-input bg-background px-3 py-2 text-foreground"
-            >
-              {SDLC_PHASES.map((phase) => (
-                <option key={phase} value={phase}>
-                  {phase}
-                </option>
-              ))}
-            </select>
-          </label>
+            <p className="rounded-md border border-border bg-muted/30 px-3 py-2 text-foreground">
+              {project.sdlcPhase}
+            </p>
+            <p className="text-xs text-muted-foreground">
+              Starts at Discovery; soft advances along the path come with the SDLC
+              view later.
+            </p>
+          </div>
           <label className="flex flex-col gap-1">
             <span className="text-muted-foreground">This week’s focus</span>
             <input

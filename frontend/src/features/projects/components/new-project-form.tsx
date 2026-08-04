@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 
 import { Button } from '#/components/ui/button'
-import { SDLC_PHASES, type SdlcPhase } from '#/features/projects/types'
 import { useCreateProject } from '#/features/projects/queries'
 
 type NewProjectFormProps = {
@@ -14,7 +13,6 @@ export function NewProjectForm({ onCreated, onCancel }: NewProjectFormProps) {
   const nameInputRef = useRef<HTMLInputElement>(null)
   const [name, setName] = useState('')
   const [description, setDescription] = useState('')
-  const [sdlcPhase, setSdlcPhase] = useState<SdlcPhase>('Discovery')
   const [todayFocus, setTodayFocus] = useState('')
 
   useEffect(() => {
@@ -28,7 +26,7 @@ export function NewProjectForm({ onCreated, onCancel }: NewProjectFormProps) {
     e.preventDefault()
     if (!name.trim()) return
     create.mutate(
-      { name, description, sdlcPhase, todayFocus },
+      { name, description, todayFocus },
       {
         onSuccess: (project) => onCreated(project.id),
       },
@@ -41,8 +39,8 @@ export function NewProjectForm({ onCreated, onCancel }: NewProjectFormProps) {
         New project
       </h2>
       <p className="mt-1 text-sm text-muted-foreground">
-        Small steps — name it, describe intent, pick a phase. You can refine setup
-        on the right after saving.
+        Journeys start in Discovery. Name it, describe intent, optionally set this
+        week’s focus — then refine setup after saving.
       </p>
       <form onSubmit={submit} className="mt-6 flex flex-col gap-4">
         <label className="flex flex-col gap-1.5 text-sm">
@@ -63,23 +61,13 @@ export function NewProjectForm({ onCreated, onCancel }: NewProjectFormProps) {
             onChange={(e) => setDescription(e.target.value)}
             rows={3}
             className="rounded-md border border-input bg-background px-3 py-2 text-foreground outline-none ring-ring focus-visible:ring-2"
-            placeholder="What are you building?"
+            placeholder="What are you building, and for whom?"
           />
         </label>
-        <label className="flex flex-col gap-1.5 text-sm">
-          <span className="font-medium text-foreground">Starting SDLC phase</span>
-          <select
-            value={sdlcPhase}
-            onChange={(e) => setSdlcPhase(e.target.value as SdlcPhase)}
-            className="rounded-md border border-input bg-background px-3 py-2 text-foreground"
-          >
-            {SDLC_PHASES.map((phase) => (
-              <option key={phase} value={phase}>
-                {phase}
-              </option>
-            ))}
-          </select>
-        </label>
+        <p className="text-sm text-muted-foreground">
+          <span className="font-medium text-foreground">SDLC phase:</span>{' '}
+          Discovery (starting point — you advance as you go)
+        </p>
         <label className="flex flex-col gap-1.5 text-sm">
           <span className="font-medium text-foreground">This week’s focus (optional)</span>
           <input

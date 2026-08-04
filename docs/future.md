@@ -2,10 +2,25 @@
 
 Brainstorming for **after** [mvp.md](./mvp.md). Nothing here is approved work—avoid letting agents or scope creep treat this as requirements.
 
+MVP SDLC rule (Discovery-first journey): [sdlc-ux.md](./sdlc-ux.md).
+
 ## Integrations
 
 - GitHub, GitLab, Azure DevOps — repos, branches, commits, PRs, issues
 - Third-party tools via API or plugins later
+
+## Pro — mid-lifecycle join (far later)
+
+**Problem:** Some developers already have a codebase deep in Development and will not hand-enter Discovery/Planning history.
+
+**Idea (not MVP):** A **Pro** (or power-user) flow to *join* an existing effort without pretending they walked the path manually:
+
+1. Connect a git remote (GitHub/GitLab/…).
+2. **Crawl / analyze** the repo (structure, README, recent commits, languages, maybe open issues).
+3. Propose a **seeded** DevOS project: inferred intent, suggested phase, starter epics/tasks, gaps to confirm.
+4. User reviews and accepts—then continues with the usual accompanied workflow from that point.
+
+Still distinct from MVP: greenfield always starts at **Discovery** with no import. This feature is optional, expensive (analysis + LLM), and depends on git integration existing first.
 
 ## Knowledge & docs (in the product)
 

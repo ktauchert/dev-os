@@ -20,12 +20,13 @@ HTTP contract implemented by **MSW** (local/tests) and **API Gateway + Lambda** 
 {
   "name": "string (required)",
   "description": "string (optional)",
-  "sdlcPhase": "Discovery | Planning | … (optional, default Discovery)",
   "todayFocus": "string (optional)"
 }
 ```
 
-**Response:** `201` — `Project` · `400` if name missing
+**Response:** `201` — `Project` with **`sdlcPhase: "Discovery"` always** · `400` if name missing
+
+Do **not** accept a create-time starting phase. MVP journey starts at Discovery ([sdlc-ux.md](./sdlc-ux.md), [mvp.md](./mvp.md)). If a client sends `sdlcPhase` on POST, ignore it (or `400`)—server wins.
 
 ## `PATCH /api/projects/:id`
 
@@ -33,7 +34,9 @@ HTTP contract implemented by **MSW** (local/tests) and **API Gateway + Lambda** 
 
 **Response:** `200` — `Project` · `404` if not found
 
-`setupSteps` are normally **derived** on the server from fields via `createSetupSteps` (see `features/projects/domain/project-logic.ts`). MSW and Lambda should use the same logic.
+`sdlcPhase` on PATCH is for **advancing along the path** (soft transitions in Milestone 6), not for declaring a mid-lifecycle import. Prefer forward moves; do not treat arbitrary jumps as first-class MVP behavior.
+
+`setupSteps` are normally **derived** on the server from fields via `createSetupSteps` (see `features/projects/domain/project-logic.ts`). MSW and Lambda should use the same logic. Setup no longer includes a “pick starting phase” step.
 
 ## `Project` shape
 

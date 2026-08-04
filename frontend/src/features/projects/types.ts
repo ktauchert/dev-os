@@ -6,7 +6,7 @@ export type SdlcPhase =
   | 'Testing'
   | 'Maintenance'
 
-export type SetupStepId = 'named' | 'intent' | 'phase' | 'focus'
+export type SetupStepId = 'named' | 'intent' | 'focus'
 
 export type SetupStep = {
   id: SetupStepId
@@ -36,11 +36,10 @@ export const SDLC_PHASES: SdlcPhase[] = [
 ]
 
 export function createSetupSteps(
-  partial?: Partial<Pick<Project, 'name' | 'description' | 'sdlcPhase' | 'todayFocus'>>,
+  partial?: Partial<Pick<Project, 'name' | 'description' | 'todayFocus'>>,
 ): SetupStep[] {
   const name = partial?.name?.trim() ?? ''
   const description = partial?.description?.trim() ?? ''
-  const phase = partial?.sdlcPhase
   const focus = partial?.todayFocus?.trim() ?? ''
 
   return [
@@ -53,14 +52,8 @@ export function createSetupSteps(
     {
       id: 'intent',
       label: 'Describe the intent',
-      hint: 'What are you building, and for whom?',
+      hint: 'What are you building, and for whom? (Discovery kickoff)',
       done: description.length >= 12,
-    },
-    {
-      id: 'phase',
-      label: 'Set SDLC starting phase',
-      hint: 'Where you are today — you can change this later.',
-      done: Boolean(phase),
     },
     {
       id: 'focus',
@@ -104,6 +97,5 @@ export function projectToShell(project: Project) {
 export type CreateProjectInput = {
   name: string
   description?: string
-  sdlcPhase?: SdlcPhase
   todayFocus?: string
 }

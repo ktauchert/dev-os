@@ -72,6 +72,8 @@ Developers remain responsible for decisions.
 
 The platform should encourage consistent progress through small achievable steps instead of overwhelming users.
 
+Projects **start at Discovery** and accumulate context as the developer walks the path with DevOS. “Where you are / what’s next” orients them on that journey—not on a free jump into a later phase. See [sdlc-ux.md](./sdlc-ux.md).
+
 ---
 
 # Skill development goals
@@ -106,4 +108,4 @@ The project is successful if:
 
 # Current stage
 
-Foundation docs (Milestone 0 ✅). **Milestone 1** largely complete: app shell and **projects** workspace over HTTP + MSW. **Next:** Milestone 2 dev API on AWS — [aws-dev-workflow.md](./aws-dev-workflow.md), [plan.md](./plan.md), [projects-ux.md](./projects-ux.md).
+Foundation docs (Milestone 0 ✅). **Milestone 1** largely complete: app shell and **projects** workspace over HTTP + MSW. SDLC product rule: Discovery-first ([sdlc-ux.md](./sdlc-ux.md)). **Next:** Milestone 2 dev API on AWS — [aws-dev-workflow.md](./aws-dev-workflow.md), [plan.md](./plan.md).

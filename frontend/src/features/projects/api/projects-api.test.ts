@@ -12,11 +12,12 @@ describe('projects API (MSW)', () => {
     resetProjectsDb()
   })
 
-  it('creates and lists projects', async () => {
+  it('creates and lists projects starting in Discovery', async () => {
     await createProject({ name: 'Alpha', description: 'First test project' })
     const list = await fetchProjects()
     expect(list).toHaveLength(1)
     expect(list[0].name).toBe('Alpha')
+    expect(list[0].sdlcPhase).toBe('Discovery')
   })
 
   it('updates a project via PATCH', async () => {

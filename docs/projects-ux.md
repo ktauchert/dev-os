@@ -2,7 +2,7 @@
 
 How the **Projects** area works in MVP: split workspace, light setup steps, and status-bar progress without a heavy wizard or global sidebar.
 
-Related: [ui-ux.md](./ui-ux.md) · [mvp.md](./mvp.md) · [vision.md](./vision.md) (continuous progress).
+Related: [ui-ux.md](./ui-ux.md) · [mvp.md](./mvp.md) · [sdlc-ux.md](./sdlc-ux.md) · [vision.md](./vision.md) (continuous progress).
 
 ---
 
@@ -37,10 +37,10 @@ Command palette lists projects and opens `/projects?project=<id>` or `?new=1`.
 ## MVP features (this slice)
 
 1. **See** all my projects in the rail.  
-2. **Create** a project (name required, description optional).  
-3. **Select** a project → detail on the right; shell header + status bar reflect **active project**.  
-4. **Setup checklist** — small fixed steps per project (not a multi-page wizard yet).  
-5. **Progress** in status bar: `Setup 2/4` + encouraging **next micro-step** (kaizen-style).
+2. **Create** a project (name required, description optional). Always starts in **Discovery**—no create-time phase picker ([sdlc-ux.md](./sdlc-ux.md)).  
+3. **Select** a project → detail on the right; shell header + status bar reflect **active project** and current phase.  
+4. **Setup checklist** — small fixed onboarding steps (not a multi-page SDLC wizard yet).  
+5. **Progress** in status bar: `Setup …` + encouraging **next micro-step** (kaizen-style).
 
 Data: **MSW** in dev/test ([api-mocking.md](./api-mocking.md)); **dev API** on AWS at Milestone 2 ([api-projects.md](./api-projects.md), [aws-dev-workflow.md](./aws-dev-workflow.md)).
 
@@ -48,16 +48,17 @@ Data: **MSW** in dev/test ([api-mocking.md](./api-mocking.md)); **dev API** on A
 
 ## Setup steps (MVP) — ease in, don’t overwhelm
 
-Four **small, completable** steps. **Done** is derived from project fields (name, description length, phase, focus) — no manual checkbox busywork.
+Three **small, completable** onboarding steps (plus an automatic Discovery start). **Done** is derived from project fields — no manual checkbox busywork.
 
 | Step | Intent | Auto-complete when |
 | --- | --- | --- |
 | **Named** | Clear title | Name non-empty |
-| **Intent** | What you’re building | Description ≥ 12 chars |
-| **Phase** | SDLC starting point | Phase selected |
+| **Intent** | What you’re building (Discovery kickoff) | Description ≥ 12 chars |
 | **Focus** | This week (kaizen) | `todayFocus` ≥ 3 chars |
 
-**Progress** = completed steps ÷ 4. Shown in footer as `Setup 3/4` and in detail as a simple checklist.
+**SDLC phase** is not a setup choice: create always sets **Discovery**. Phase changes later mean **progress along the path** (Milestone 6), not “I already was elsewhere.”
+
+**Progress** = completed setup steps ÷ 3. Shown in footer as `Setup 2/3` and in detail as a simple checklist.
 
 ### Kaizen tone (copy, not gamification)
 
@@ -65,15 +66,17 @@ Four **small, completable** steps. **Done** is derived from project fields (name
 - When all setup steps done: “Setup complete — good momentum. Open the board when work items exist.”  
 - Avoid streaks, points, or nagging notifications in MVP.
 
-Full **SDLC wizard routes** (step-by-step guided flow across the whole lifecycle) belong to **Milestone 6** — build on this checklist, don’t block project CRUD on it.
+Full **SDLC map / “what’s next”** belong to **Milestone 6** ([sdlc-ux.md](./sdlc-ux.md)) — build on this checklist, don’t block project CRUD on it.
 
 ---
 
 ## Later (not MVP on this page)
 
-- Multi-route wizard (`/projects/$id/setup/discovery`, …)  
-- Auto-complete steps from work items / AI  
-- Board link from project detail (`/projects/$id/board`)
+- Soft advance Discovery → Planning → … with exit hints  
+- Multi-route phase views (`/projects/$id/sdlc`, …)  
+- Auto-complete setup from work items / AI  
+- Board link from project detail (`/projects/$id/board`)  
+- **Pro mid-lifecycle join** via git crawl — [future.md](./future.md) only
 
 ---
 

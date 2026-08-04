@@ -116,7 +116,7 @@ Suggested feature modules for UI work:
 | `shell/` | Context strip, status bar (footer), command palette, shortcuts |
 | `projects/` | Project rail, create form, detail, setup checklist |
 | `work/` | Kanban, task detail |
-| `sdlc/` | Phase progress, “what’s next” |
+| `sdlc/` | Phase map on Discovery-first path, “what’s next” ([sdlc-ux.md](./sdlc-ux.md)) |
 | `auth/` | Login (until Cognito: placeholder) |
 | `ai/` | Companion sheet + palette entries |
 

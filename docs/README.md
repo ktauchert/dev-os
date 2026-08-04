@@ -21,6 +21,7 @@
 | [ui-theme.md](./ui-theme.md) | shadcn tokens, light/dark, accent themes |
 | [ui-ux.md](./ui-ux.md) | Shell, command palette (Ctrl+K), keyboard-first UX |
 | [projects-ux.md](./projects-ux.md) | Projects split view, setup progress, kaizen tone |
+| [sdlc-ux.md](./sdlc-ux.md) | Discovery-first SDLC journey; phase map intent |
 | [api-projects.md](./api-projects.md) | REST contract (projects) |
 | [api-mocking.md](./api-mocking.md) | MSW mock API in dev & tests |
 | [testing.md](./testing.md) | Vitest & test conventions |

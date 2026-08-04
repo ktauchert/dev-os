@@ -107,13 +107,14 @@ Build DevOS as a real SaaS while deepening the **TanStack + Vite** frontend stac
 
 ## Milestone 6 – SDLC in the product
 
-**Goal:** Show where the project is in the SDLC and what comes next.
+**Goal:** Show where the project is on the **Discovery-first path** and what the next micro-step is ([sdlc-ux.md](./sdlc-ux.md), [mvp.md](./mvp.md)).
 
-- [ ] SDLC phases per project (extend API + UI beyond today’s fields)
-- [ ] Progress visualization
-- [ ] Workflow transitions / project health (minimal but useful)
+- [x] Align create UI/API with always-Discovery (remove create-time phase picker if still present)
+- [ ] Phase map / “you are here” + one next step
+- [ ] Soft forward transitions (exit hints); no mid-lifecycle create
+- [ ] Workflow health (minimal but useful)
 
-**Skill focus:** Workflow and domain modeling.
+**Skill focus:** Workflow and domain modeling. Mid-lifecycle git join stays in [future.md](./future.md).
 
 ---
 
@@ -144,7 +145,8 @@ Build DevOS as a real SaaS while deepening the **TanStack + Vite** frontend stac
 
 Not part of the MVP checklist. See [future.md](./future.md) for a longer wish list.
 
-- GitHub / GitLab integration
+- **Pro:** mid-lifecycle join via git crawl / repo analysis ([future.md](./future.md))
+- GitHub / GitLab integration (broader)
 - Teams, notifications, analytics, plugins, mobile
 
 ---

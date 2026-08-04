@@ -10,6 +10,8 @@ DevOS is an AI-assisted software development management platform built as a serv
 
 User -> Project -> SDLC Stage -> Epic -> Feature -> Task
 
+**SDLC product rule:** projects start at **Discovery** and advance along a guided path; see [sdlc-ux.md](./sdlc-ux.md).
+
 ## Core Data Flow (target production)
 
 1. Client (React SPA) authenticates with AWS Cognito and receives JWTs.
