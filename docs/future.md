@@ -22,6 +22,11 @@ Brainstorming for **after** [mvp.md](./mvp.md). Nothing here is approved work—
 - Teams and collaboration
 - Plugin system, custom workflows, mobile companion, public API
 
+## Pro / power-user (footer widgets)
+
+- **Pomodoro / focus timer** in the status bar (configurable slot — not [mvp.md](./mvp.md))
+- Other optional status-bar widgets (build status, branch name when Git integration exists)
+
 ## Design philosophy (unchanged)
 
 Simplicity, structure over chat-only UX, context-aware guidance, developer stays in control. DevOS complements Git hosts and IDEs—it does not replace them.

@@ -4,7 +4,7 @@ An AI-assisted software development platform that supports developers throughout
 
 ## Status
 
-In active development — Milestone 1 (local foundation). See [docs/plan.md](docs/plan.md).
+In active development — **Milestone 1** (shell + local projects UI). Next: work board UI or **Milestone 2** (AWS). See [docs/plan.md](docs/plan.md).
 
 ## Goals
 
@@ -24,8 +24,15 @@ In active development — Milestone 1 (local foundation). See [docs/plan.md](doc
 | Vision | [docs/vision.md](docs/vision.md) |
 | MVP scope | [docs/mvp.md](docs/mvp.md) |
 | Plan / milestones | [docs/plan.md](docs/plan.md) |
-| AI pair programming | [AGENTS.md](AGENTS.md) |
+| Pair programming (DevOS) | [AGENTS.md](AGENTS.md) |
+| Frontend (TanStack) | [frontend/AGENTS.md](frontend/AGENTS.md) |
 
 ## Repo layout
 
 `frontend/` · `backend/` · `infrastructure/` · `docs/`
+
+From the repo root (after `npm install` in `frontend/`):
+
+```bash
+npm run dev
+```

@@ -17,8 +17,16 @@
 | [tech-stack.md](./tech-stack.md) | Stack choices |
 | [frontend-architecture.md](./frontend-architecture.md) | React folder layout |
 | [ui-theme.md](./ui-theme.md) | shadcn tokens, light/dark, accent themes |
+| [ui-ux.md](./ui-ux.md) | Shell, command palette (Ctrl+K), keyboard-first UX |
+| [projects-ux.md](./projects-ux.md) | Projects split view, setup progress, kaizen tone |
+| [api-projects.md](./api-projects.md) | REST contract (projects) |
+| [api-mocking.md](./api-mocking.md) | MSW mock API in dev & tests |
+| [testing.md](./testing.md) | Vitest & test conventions |
 | [aws-architecture.md](./aws-architecture.md) | AWS services and flow |
 
 ## Agent
 
-Pair-programming rules: [AGENTS.md](../AGENTS.md) at repo root.
+| | |
+| --- | --- |
+| DevOS (product, AWS, theme) | [AGENTS.md](../AGENTS.md) |
+| Frontend TanStack Intent | [frontend/AGENTS.md](../frontend/AGENTS.md) |

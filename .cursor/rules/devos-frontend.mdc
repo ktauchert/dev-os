@@ -6,9 +6,11 @@ alwaysApply: false
 
 # Frontend
 
-Follow [docs/frontend-architecture.md](../../docs/frontend-architecture.md), [docs/tech-stack.md](../../docs/tech-stack.md), and [docs/ui-theme.md](../../docs/ui-theme.md). For theme work, use skill **devos-ui-theme** (`.cursor/skills/devos-ui-theme/`).
+Follow [docs/frontend-architecture.md](../../docs/frontend-architecture.md), [docs/tech-stack.md](../../docs/tech-stack.md), [docs/ui-theme.md](../../docs/ui-theme.md), and [frontend/AGENTS.md](../../frontend/AGENTS.md) (TanStack Intent index). Product scope: repo [AGENTS.md](../../AGENTS.md). Theme skill: **devos-ui-theme**.
 
 - Colocate feature code under `src/features/{auth,projects,work,sdlc,ai}/`.
+- Routes live in `src/routes/` (TanStack Router file routes); wire features into route components and loaders.
+- For Router/Query/Table changes, run the relevant `npx @tanstack/intent@latest load …` from `frontend/AGENTS.md` first. Do not adopt TanStack Start or server routes.
 - Shared primitives in `src/components/ui/` (shadcn).
 - Server state via TanStack Query; avoid duplicating API data in global client state.
 - Prefer accessible, structured UI (boards, forms, wizards) over chat-only flows ([docs/vision.md](../../docs/vision.md)).

@@ -1,23 +1,81 @@
 # Frontend Architecture (React + TypeScript)
 
-## Directory Structure
+## Directory structure (current)
+
 ```text
 src/
-├── assets/          # Static assets & images
-├── components/      # Reusable UI components (buttons, modals, cards)
-│   └── ui/          # Primitives (Shadcn UI / Tailwind)
-├── features/        # Feature-driven modules
-│   ├── auth/        # Auth state, login/signup forms, Cognito hooks
-│   ├── projects/    # Project dashboard, creation form, settings
-│   ├── work/        # Epics, features, tasks, Kanban board logic
-│   ├── sdlc/        # SDLC stage visualization & status updates
-│   └── ai/          # AI companion drawer, prompt interfaces
-├── hooks/           # Shared custom React hooks
-├── lib/             # Third-party configuration (Axios/Fetch, API clients)
-├── routes/          # Application routing (Protected & Public routes)
-├── styles/          # globals.css, themes.css (see ui-theme.md)
-├── types/           # Global TypeScript interfaces & domain types
-└── utils/           # Helper functions & formatters
+├── components/
+│   ├── ui/              # shadcn primitives (button, command, dialog, …)
+│   ├── theme-provider.tsx
+│   └── theme-controls.tsx
+├── features/
+│   ├── shell/           # App chrome — see ui-ux.md
+│   │   ├── app-shell.tsx
+│   │   ├── context-strip.tsx
+│   │   ├── status-bar.tsx
+│   │   ├── command-palette.tsx
+│   │   └── …
+│   ├── projects/        # Projects workspace — see projects-ux.md
+│   │   ├── api/           # HTTP client (projects-api.ts)
+│   │   ├── domain/        # buildNewProject, applyProjectPatch
+│   │   ├── components/
+│   │   ├── queries.ts
+│   │   └── types.ts
+├── mocks/               # MSW handlers + in-memory db — see api-mocking.md
+│   ├── auth/            # (planned) Cognito
+│   ├── work/            # (planned) Kanban
+│   ├── sdlc/            # (planned) phase UI
+│   └── ai/              # (planned) companion sheet
+├── integrations/tanstack-query/
+├── lib/
+│   ├── query-client.ts
+│   ├── api-client.ts
+│   ├── theme.ts
+│   └── utils.ts
+├── test/setup.ts        # Vitest + MSW node
+├── routes/
+│   ├── __root.tsx       # HTML shell → AppShell → {children}
+│   ├── index.tsx        # /
+│   └── projects/
+│       └── index.tsx    # /projects?project=&new=
+├── styles.css           # Tailwind + theme tokens (ui-theme.md)
+└── router.tsx
 ```
 
-Theming (shadcn CSS variables, light/dark, accents): [ui-theme.md](./ui-theme.md).
+Theming: [ui-theme.md](./ui-theme.md). Shell: [ui-ux.md](./ui-ux.md). Projects: [projects-ux.md](./projects-ux.md). API mock: [api-mocking.md](./api-mocking.md). Tests: [testing.md](./testing.md).
+
+## Routes (today)
+
+| Path | File | Notes |
+| --- | --- | --- |
+| `/` | `routes/index.tsx` | Home |
+| `/projects` | `routes/projects/index.tsx` | Search: `?new=1`, `?project=<id>` |
+
+Thin routes: import from `features/*`; no business logic in route files.
+
+## TanStack Router vs Next.js `layout.tsx`
+
+| Next.js (App Router) | TanStack Router (file routes) |
+| --- | --- |
+| `app/layout.tsx` | `src/routes/__root.tsx` — `shellComponent` wraps every page |
+| Nested `layout.tsx` | e.g. `routes/projects/route.tsx` + `<Outlet />` when needed |
+| `children` | `{children}` in Start shell, or `<Outlet />` in layout routes |
+
+**Today:** `__root.tsx` provides document + `AppShell` (Query provider, context strip, main, status bar, command palette). Page content is `{children}`.
+
+## Routing conventions
+
+- File-based routes under `src/routes/`; run `npm run generate-routes` after adding files.
+- **No global sidebar** — navigation via command palette; see [ui-ux.md](./ui-ux.md).
+- Prefer route **search params** for pane state on `/projects` until nested routes are needed.
+- Later: `beforeLoad` / parent routes for Cognito; loaders + Query for API data.
+- Do not add React Router.
+
+## Data (frontend)
+
+- Projects: `features/projects/api/projects-api.ts` → `GET/POST/PATCH /api/projects`
+- Mock server: MSW ([api-mocking.md](./api-mocking.md)); contract [api-projects.md](./api-projects.md)
+- TanStack Query hooks in `features/projects/queries.ts`
+- Shell sync: `projectToShell()` when a project is selected on `/projects`
+
+Real Lambda replaces MSW when `VITE_API_BASE_URL` is set (Milestone 4).

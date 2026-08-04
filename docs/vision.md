@@ -106,4 +106,4 @@ The project is successful if:
 
 # Current stage
 
-Foundation docs are in place (Milestone 0 ✅). Next: **Milestone 1 – Local foundation** — see [plan.md](./plan.md).
+Foundation docs (Milestone 0 ✅). **Milestone 1:** app shell (palette, status bar) and **projects** workspace with local persistence — see [plan.md](./plan.md), [projects-ux.md](./projects-ux.md).

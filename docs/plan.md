@@ -17,10 +17,15 @@ Build DevOS as a real SaaS while learning React, AWS, and architecture in practi
 
 **Goal:** Run DevOS locally with a clean dev setup.
 
-- [ ] React app (Vite, TypeScript)
-- [ ] Backend app skeleton
-- [ ] Feature-first project structure and routing
-- [ ] Local dev documented in `frontend/README.md`
+**Status:** In progress — shell + projects UI + MSW API; work/sdlc routes next.
+
+- [x] React app (Vite, TypeScript, TanStack Query, shadcn toolchain)
+- [x] TanStack Router + [app shell](ui-ux.md) (`features/shell/`)
+- [x] UI theme ([ui-theme.md](./ui-theme.md))
+- [x] `features/projects/` — split workspace; HTTP + MSW + Vitest ([api-mocking.md](./api-mocking.md), [testing.md](./testing.md))
+- [ ] Backend skeleton (contract in [api-projects.md](./api-projects.md); [backend/README.md](../backend/README.md))
+- [ ] `features/work/`, `features/sdlc/`, `features/auth/` (stubs / next)
+- [x] Local dev from repo root (`npm run dev` → frontend on port 3000)
 
 **Learning:** React, TypeScript, project layout ([frontend-architecture.md](./frontend-architecture.md)).
 
@@ -56,9 +61,9 @@ Build DevOS as a real SaaS while learning React, AWS, and architecture in practi
 
 **Goal:** Create and manage software projects.
 
-- [ ] Project CRUD API + persistence
-- [ ] Project dashboard and settings
-- [ ] TanStack Query for server state
+- [x] **UI + client:** project rail, forms, TanStack Query → HTTP ([projects-ux.md](./projects-ux.md))
+- [x] **Mock API:** MSW handlers match [api-projects.md](./api-projects.md)
+- [ ] **Backend:** Lambda + DynamoDB implement same contract
 
 **Learning:** Forms, validation, mutations and cache updates.
 

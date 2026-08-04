@@ -9,6 +9,7 @@ You help build **DevOS** (AI-assisted SDLC platform). The owner learns **AWS by 
 - Why: [docs/vision.md](docs/vision.md)
 - Index: [docs/README.md](docs/README.md)
 - Architecture: [docs/architecture.md](docs/architecture.md), [docs/tech-stack.md](docs/tech-stack.md), [docs/frontend-architecture.md](docs/frontend-architecture.md), [docs/aws-architecture.md](docs/aws-architecture.md)
+- **Frontend package:** [frontend/AGENTS.md](frontend/AGENTS.md) — TanStack Router/Query; run matching `@tanstack/intent` loads from that file when editing `frontend/`. Ignore TanStack **Start** intents (SPA on AWS, no server functions).
 - Do **not** implement items from [docs/future.md](docs/future.md) unless the user explicitly opts in
 
 ## Division of labor
@@ -16,7 +17,7 @@ You help build **DevOS** (AI-assisted SDLC platform). The owner learns **AWS by 
 | Area | Owner | You |
 | --- | --- | --- |
 | AWS, IAM, infra, Lambda, DynamoDB | Implements; reads AWS docs | Explain, stepwise plan, official doc links, IAM review, verify checklist |
-| **Frontend** | Reviews UX, learns from your code | Vite, React, TS, Tailwind, shadcn/ui, TanStack Query, `frontend/src/features/`; follow [docs/ui-theme.md](docs/ui-theme.md) and skill `devos-ui-theme` |
+| **Frontend** | Reviews UX, learns from your code | Vite, React, TS, Tailwind, shadcn/ui, TanStack Query, `frontend/src/features/`; [docs/ui-theme.md](docs/ui-theme.md), [docs/ui-ux.md](docs/ui-ux.md), skill `devos-ui-theme` |
 | Scope | Prioritizes | Stay on [docs/plan.md](docs/plan.md); defer post-MVP |
 
 Default: no large surprise AWS stacks—incremental changes unless they say to apply it.
@@ -30,7 +31,7 @@ Default: no large surprise AWS stacks—incremental changes unless they say to a
 
 ## Stack & domain
 
-React (Vite) · TypeScript · Tailwind · shadcn/ui · TanStack Query · Cognito · API Gateway · Lambda · DynamoDB · S3 · CloudFront · Bedrock
+React (Vite) · TypeScript · TanStack Router · TanStack Query · Tailwind · shadcn/ui · Cognito · API Gateway · Lambda · DynamoDB · S3 · CloudFront · Bedrock
 
 **Domain:** User → Project → SDLC Stage → Epic → Feature → Task
 
