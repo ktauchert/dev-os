@@ -1,0 +1,19 @@
+{
+  "name": "@dev-os/domain",
+  "private": true,
+  "type": "module",
+  "description": "Shared domain types and logic for DevOS",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.2",
+    "typescript": "^5.9.2",
+    "vitest": "^3.2.4"
+  }
+}

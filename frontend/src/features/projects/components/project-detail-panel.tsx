@@ -5,7 +5,7 @@ import {
   nextSetupHint,
   setupProgress,
   type Project,
-} from '#/features/projects/types'
+} from '@dev-os/domain'
 import {
   useUpdateProject,
 } from '#/features/projects/queries'

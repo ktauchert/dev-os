@@ -17,10 +17,10 @@ src/
 │   │   └── …
 │   ├── projects/        # Projects workspace — see projects-ux.md
 │   │   ├── api/           # HTTP client (projects-api.ts)
-│   │   ├── domain/        # buildNewProject, applyProjectPatch
+│   │   ├── project-shell.ts  # projectToShell (UI → shell context)
 │   │   ├── components/
 │   │   ├── queries.ts
-│   │   └── types.ts
+│   │   # types + domain logic: @dev-os/domain (packages/domain)
 ├── mocks/               # MSW handlers + in-memory db — see api-mocking.md
 │   ├── auth/            # (planned) Cognito
 │   ├── work/            # (planned) Kanban

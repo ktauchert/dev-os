@@ -5,7 +5,7 @@ import { NewProjectForm } from '#/features/projects/components/new-project-form'
 import { ProjectDetailPanel } from '#/features/projects/components/project-detail-panel'
 import { ProjectListPanel } from '#/features/projects/components/project-list-panel'
 import { useProjects } from '#/features/projects/queries'
-import { projectToShell } from '#/features/projects/types'
+import { projectToShell } from '#/features/projects/project-shell'
 import { useShell } from '#/features/shell/shell-context'
 
 export type ProjectsSearch = {

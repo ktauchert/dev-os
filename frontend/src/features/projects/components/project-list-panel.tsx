@@ -1,7 +1,7 @@
 import { Plus } from 'lucide-react'
 
 import { Button } from '#/components/ui/button'
-import type { Project } from '#/features/projects/types'
+import type { Project } from '@dev-os/domain'
 import { cn } from '#/lib/utils'
 
 type ProjectListPanelProps = {

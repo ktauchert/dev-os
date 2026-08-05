@@ -36,11 +36,11 @@ Do **not** accept a create-time starting phase. MVP journey starts at Discovery 
 
 `sdlcPhase` on PATCH is for **advancing along the path** (soft transitions in Milestone 6), not for declaring a mid-lifecycle import. Prefer forward moves; do not treat arbitrary jumps as first-class MVP behavior.
 
-`setupSteps` are normally **derived** on the server from fields via `createSetupSteps` (see `features/projects/domain/project-logic.ts`). MSW and Lambda should use the same logic. Setup no longer includes a “pick starting phase” step.
+`setupSteps` are normally **derived** on the server from fields via `createSetupSteps` (see `packages/domain/src/helpers/setup-steps.ts`). MSW and Lambda should use the same logic. Setup no longer includes a “pick starting phase” step.
 
 ## `Project` shape
 
-See `frontend/src/features/projects/types.ts` — `id`, `name`, `description`, `sdlcPhase`, `todayFocus`, `setupSteps[]`, `createdAt`, `updatedAt`.
+See `packages/domain` (`Project`) — `id`, `name`, `description`, `sdlcPhase`, `todayFocus`, `setupSteps[]`, `createdAt`, `updatedAt`.
 
 ## Auth (Milestone 3+)
 

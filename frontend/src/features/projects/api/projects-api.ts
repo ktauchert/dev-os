@@ -1,6 +1,5 @@
 import { apiGet, apiPatch, apiPost, ApiError } from '#/lib/api-client'
-import type { ProjectPatch } from '#/features/projects/domain/project-logic'
-import type { CreateProjectInput, Project } from '#/features/projects/types'
+import type { CreateProjectInput, Project, ProjectPatch } from '@dev-os/domain'
 
 const PROJECTS_PATH = '/api/projects'
 

@@ -5,8 +5,7 @@ import {
   fetchProjects,
   updateProject,
 } from '#/features/projects/api/projects-api'
-import type { ProjectPatch } from '#/features/projects/domain/project-logic'
-import type { CreateProjectInput } from '#/features/projects/types'
+import type { CreateProjectInput, ProjectPatch } from '@dev-os/domain'
 
 export const projectKeys = {
   all: ['projects'] as const,

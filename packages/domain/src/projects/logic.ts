@@ -1,8 +1,5 @@
-import {
-  createSetupSteps,
-  type CreateProjectInput,
-  type Project,
-} from '#/features/projects/types'
+import { createSetupSteps } from '../helpers/setup-steps.js'
+import type { CreateProjectInput, Project } from './types.js'
 
 export type ProjectPatch = Partial<
   Pick<Project, 'name' | 'description' | 'sdlcPhase' | 'todayFocus' | 'setupSteps'>
@@ -13,7 +10,6 @@ export function buildNewProject(input: CreateProjectInput): Project {
   const name = input.name.trim()
   const description = input.description?.trim() ?? ''
   const todayFocus = input.todayFocus?.trim() ?? ''
-  /** MVP: journeys always start at Discovery (docs/sdlc-ux.md). */
   const sdlcPhase = 'Discovery' as const
 
   return {
@@ -41,8 +37,7 @@ export function applyProjectPatch(current: Project, patch: ProjectPatch): Projec
     patch.todayFocus !== undefined ? patch.todayFocus.trim() : current.todayFocus
 
   const setupSteps =
-    patch.setupSteps ??
-    createSetupSteps({ name, description, todayFocus })
+    patch.setupSteps ?? createSetupSteps({ name, description, todayFocus })
 
   return {
     ...current,

@@ -1,6 +1,11 @@
 {
   "name": "dev-os",
   "private": true,
+  "workspaces": [
+    "frontend",
+    "backend",
+    "packages/*"
+  ],
   "description": "DevOS monorepo — run scripts from repo root",
   "scripts": {
     "dev": "npm run dev --prefix frontend",
@@ -10,6 +15,6 @@
     "format": "npm run format --prefix frontend",
     "check": "npm run check --prefix frontend",
     "generate-routes": "npm run generate-routes --prefix frontend",
-    "test": "npm run test --prefix frontend"
+    "test": "npm run test --prefix frontend && npm run test -w @dev-os/domain"
   }
 }

@@ -85,7 +85,7 @@ Full **SDLC map / “what’s next”** belong to **Milestone 6** ([sdlc-ux.md](
 | Piece | Location |
 | --- | --- |
 | HTTP client | `features/projects/api/projects-api.ts` |
-| Domain rules | `features/projects/domain/project-logic.ts` |
+| Domain rules | `packages/domain` (`projects/logic.ts`, `helpers/setup-steps.ts`) |
 | MSW handlers | `mocks/handlers/projects-handlers.ts` |
 | Route + search params | `frontend/src/routes/projects/index.tsx` |
 | Palette entries | `features/shell/command-palette.tsx` |

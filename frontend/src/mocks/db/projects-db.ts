@@ -3,8 +3,8 @@ import {
   buildNewProject,
   sortProjectsByUpdated,
   type ProjectPatch,
-} from '#/features/projects/domain/project-logic'
-import type { CreateProjectInput, Project } from '#/features/projects/types'
+} from '@dev-os/domain'
+import type { CreateProjectInput, Project } from '@dev-os/domain'
 
 let projects: Project[] = []
 

@@ -1,11 +1,11 @@
 import { describe, expect, it } from 'vitest'
 
-import { buildNewProject } from '#/features/projects/domain/project-logic'
 import {
   createSetupSteps,
   nextSetupHint,
   setupProgress,
-} from '#/features/projects/types'
+} from '../helpers/setup-steps.js'
+import { buildNewProject } from './logic.js'
 
 describe('project setup helpers', () => {
   it('counts completed setup steps from field values', () => {
