@@ -9,6 +9,9 @@
   "description": "DevOS monorepo — run scripts from repo root",
   "scripts": {
     "dev": "npm run dev --prefix frontend",
+    "dynamo:up": "docker compose up -d dynamodb-local",
+    "dynamo:down": "docker compose down",
+    "dynamo:create-table": "bash infrastructure/dynamodb/create-table.sh",
     "build": "npm run build --prefix frontend",
     "preview": "npm run preview --prefix frontend",
     "lint": "npm run lint --prefix frontend",

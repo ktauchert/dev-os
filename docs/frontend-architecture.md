@@ -33,14 +33,17 @@ src/
 │   ├── theme.ts
 │   └── utils.ts
 ├── test/setup.ts        # Vitest + MSW node
+├── main.tsx             # SPA entry → RouterProvider
 ├── routes/
-│   ├── __root.tsx       # HTML shell → AppShell → {children}
+│   ├── __root.tsx       # AppShell → <Outlet />
 │   ├── index.tsx        # /
 │   └── projects/
 │       └── index.tsx    # /projects?project=&new=
 ├── styles.css           # Tailwind + theme tokens (ui-theme.md)
 └── router.tsx
 ```
+
+SPA shell: `index.html` at package root (theme bootstrap + `#root`).
 
 Theming: [ui-theme.md](./ui-theme.md). Shell: [ui-ux.md](./ui-ux.md). Projects: [projects-ux.md](./projects-ux.md). API mock: [api-mocking.md](./api-mocking.md). Tests: [testing.md](./testing.md).
 
@@ -57,11 +60,11 @@ Thin routes: import from `features/*`; no business logic in route files.
 
 | Next.js (App Router) | TanStack Router (file routes) |
 | --- | --- |
-| `app/layout.tsx` | `src/routes/__root.tsx` — `shellComponent` wraps every page |
+| `app/layout.tsx` | `src/routes/__root.tsx` — wraps every page with `AppShell` + `<Outlet />` |
 | Nested `layout.tsx` | e.g. `routes/projects/route.tsx` + `<Outlet />` when needed |
-| `children` | `{children}` in Start shell, or `<Outlet />` in layout routes |
+| `children` | `<Outlet />` in layout / root routes |
 
-**Today:** `__root.tsx` provides document + `AppShell` (Query provider, context strip, main, status bar, command palette). Page content is `{children}`.
+**Today:** Vite SPA (`index.html` → `src/main.tsx`). `__root.tsx` wraps pages in `AppShell` (Query provider, context strip, main, status bar, command palette). Page content is `<Outlet />`.
 
 ## Routing conventions
 

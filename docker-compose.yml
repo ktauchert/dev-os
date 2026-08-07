@@ -1,0 +1,9 @@
+services:
+  dynamodb-local:
+    image: amazon/dynamodb-local:latest
+    container_name: dev-os-dynamodb-local
+    ports:
+      - '8000:8000'
+    # -sharedDb: one DB for all clients; -inMemory: reliable on Linux (no volume permission issues)
+    # For persistence later, add a named volume + -dbPath (see docs/dynamodb-local.md)
+    command: '-jar DynamoDBLocal.jar -sharedDb -inMemory'

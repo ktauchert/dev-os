@@ -15,6 +15,7 @@
 | Doc | Use when |
 | --- | --- |
 | [architecture.md](./architecture.md) | Domain model and data flow |
+| [data-model.md](./data-model.md) | **Class diagram / ER**, SDLC on entities, Dynamo mapping |
 | [tech-stack.md](./tech-stack.md) | Stack choices |
 | [aws-architecture.md](./aws-architecture.md) | AWS services and flow |
 | [frontend-architecture.md](./frontend-architecture.md) | React folder layout |
@@ -22,9 +23,12 @@
 | [ui-ux.md](./ui-ux.md) | Shell, command palette (Ctrl+K), keyboard-first UX |
 | [projects-ux.md](./projects-ux.md) | Projects split view, setup progress, kaizen tone |
 | [sdlc-ux.md](./sdlc-ux.md) | Discovery-first SDLC journey; phase map intent |
-| [api-projects.md](./api-projects.md) | REST contract (projects) |
+| [api-projects.md](./api-projects.md) | REST contract (projects) — narrative + FE map |
+| [api/openapi.yaml](./api/openapi.yaml) | OpenAPI 3.1 (import into Postman, etc.) |
+| [dynamodb-local.md](./dynamodb-local.md) | Docker DynamoDB Local, keys, queries, backend `.env` |
 | [api-mocking.md](./api-mocking.md) | MSW mock API in dev & tests |
 | [testing.md](./testing.md) | Vitest & test conventions |
+| [learnings.md](./learnings.md) | Gotchas & decisions from building (newest first) |
 
 ## Agent
 

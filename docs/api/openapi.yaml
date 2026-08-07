@@ -1,0 +1,234 @@
+openapi: 3.1.0
+info:
+  title: DevOS API
+  version: 0.1.0
+  description: |
+    HTTP contract for DevOS (MVP). Paths are relative to the API base URL
+    (`VITE_API_BASE_URL` in the SPA, or same-origin when empty).
+
+    **Human-readable notes:** [api-projects.md](./api-projects.md)
+    **Domain types (TypeScript):** `packages/domain`
+    **Frontend client:** `frontend/src/features/projects/api/projects-api.ts`
+
+    Auth (Cognito JWT) is Milestone 3 — not required on dev-only stacks.
+
+servers:
+  - url: http://localhost:3001
+    description: Local dev API (Lambda handler or dev server — you provide this)
+  - url: https://{apiId}.execute-api.{region}.amazonaws.com/{stage}
+    description: API Gateway (AWS)
+    variables:
+      apiId:
+        default: xxxx
+      region:
+        default: eu-central-1
+      stage:
+        default: dev
+
+tags:
+  - name: projects
+    description: Software projects (always start in Discovery)
+
+paths:
+  /api/projects:
+    get:
+      tags: [projects]
+      operationId: listProjects
+      summary: List projects
+      responses:
+        '200':
+          description: Projects sorted by updatedAt descending
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Project'
+    post:
+      tags: [projects]
+      operationId: createProject
+      summary: Create a project
+      description: |
+        Server always sets `sdlcPhase` to `Discovery`. Ignore or reject
+        client-sent `sdlcPhase` on create.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateProjectInput'
+      responses:
+        '201':
+          description: Created project
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Project'
+        '400':
+          description: Validation error (e.g. missing name)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
+
+  /api/projects/{id}:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+    get:
+      tags: [projects]
+      operationId: getProject
+      summary: Get one project
+      responses:
+        '200':
+          description: Project
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Project'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
+    patch:
+      tags: [projects]
+      operationId: patchProject
+      summary: Partial update
+      description: |
+        `setupSteps` are usually derived server-side from name, description,
+        and todayFocus unless explicitly sent.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProjectPatch'
+      responses:
+        '200':
+          description: Updated project
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Project'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
+
+components:
+  schemas:
+    ErrorMessage:
+      type: object
+      required: [message]
+      properties:
+        message:
+          type: string
+      example:
+        message: Project not found
+
+    SdlcPhase:
+      type: string
+      enum:
+        - Discovery
+        - Planning
+        - Architecture
+        - Development
+        - Testing
+        - Maintenance
+
+    SetupStepId:
+      type: string
+      enum: [named, intent, focus]
+
+    SetupStep:
+      type: object
+      required: [id, label, hint, done]
+      properties:
+        id:
+          $ref: '#/components/schemas/SetupStepId'
+        label:
+          type: string
+        hint:
+          type: string
+        done:
+          type: boolean
+
+    Project:
+      type: object
+      required:
+        - id
+        - name
+        - description
+        - sdlcPhase
+        - todayFocus
+        - setupSteps
+        - createdAt
+        - updatedAt
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        description:
+          type: string
+        sdlcPhase:
+          $ref: '#/components/schemas/SdlcPhase'
+        todayFocus:
+          type: string
+        setupSteps:
+          type: array
+          items:
+            $ref: '#/components/schemas/SetupStep'
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+
+    CreateProjectInput:
+      type: object
+      required: [name]
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        todayFocus:
+          type: string
+
+    ProjectPatch:
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        sdlcPhase:
+          $ref: '#/components/schemas/SdlcPhase'
+        todayFocus:
+          type: string
+        setupSteps:
+          type: array
+          items:
+            $ref: '#/components/schemas/SetupStep'
+
+  securitySchemes:
+    cognitoJwt:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: Milestone 3+ — API Gateway Cognito authorizer
+
+# Global security applied in M3; omitted for open dev stacks.
+# security:
+#   - cognitoJwt: []

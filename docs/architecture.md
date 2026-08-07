@@ -12,6 +12,8 @@ User -> Project -> SDLC Stage -> Epic -> Feature -> Task
 
 **SDLC product rule:** projects start at **Discovery** and advance along a guided path; see [sdlc-ux.md](./sdlc-ux.md).
 
+**Domain / data model (class diagram, ER, Dynamo mapping):** [data-model.md](./data-model.md).
+
 ## Core Data Flow (target production)
 
 1. Client (React SPA) authenticates with AWS Cognito and receives JWTs.

@@ -2,7 +2,7 @@
 
 API and Lambda logic for DevOS.
 
-**Contract:** [docs/api-projects.md](../docs/api-projects.md)  
+**Contract:** [docs/api-projects.md](../docs/api-projects.md) · [docs/api/openapi.yaml](../docs/api/openapi.yaml)  
 **When to build/deploy:** Milestone 2 in [docs/plan.md](../docs/plan.md)  
 **Workflow (IAM, CORS, order):** [docs/aws-dev-workflow.md](../docs/aws-dev-workflow.md)  
 **Service map:** [docs/aws-architecture.md](../docs/aws-architecture.md)
@@ -39,7 +39,6 @@ backend/
     ├── index.ts             # optional: single Lambda entry + router
     ├── handlers/
     │   └── projects.ts      # HTTP: list / get / create / patch
-    ├── domain/              # buildNewProject, applyProjectPatch (mirror frontend)
     ├── repos/
     │   └── projects-repo.ts # DynamoDB (or in-memory while learning)
     └── lib/
@@ -48,7 +47,10 @@ backend/
         └── dynamo.ts        # DocumentClient + TABLE_NAME
 ```
 
-**Build order (learning):** `domain` → `repos` → `handlers` → `index.ts` → AWS wiring.
+**Datei-für-Datei:** [FILES.md](./FILES.md)  
+**Domain:** `@dev-os/domain` — kein `src/domain/` im Backend.
+
+**Build order (learning):** `lib/` → `repos/` → `handlers/` → `index.ts` → AWS wiring.
 
 ## Implementing Milestone 2
 
@@ -57,7 +59,7 @@ backend/
 3. Wire API Gateway routes to Lambda; enable CORS for `http://localhost:3000`.
 4. Verify with `curl`, then frontend `VITE_MOCK_API=false` + `VITE_API_BASE_URL`.
 
-Copy or share domain rules from `frontend/src/features/projects/domain/` so MSW, tests, and Lambda stay aligned.
+Use **`@dev-os/domain`** for `buildNewProject`, `applyProjectPatch`, and types — same as MSW.
 
 ## Milestone 3
 

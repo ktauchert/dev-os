@@ -1,6 +1,20 @@
 # Projects API (MVP)
 
+**OpenAPI (machine-readable):** [api/openapi.yaml](./api/openapi.yaml) — import in Insomnia, Postman, or Swagger UI.
+
 HTTP contract implemented by **MSW** (local/tests) and **API Gateway + Lambda** (AWS). Paths are relative to `VITE_API_BASE_URL` (empty = same origin).
+
+## Where the frontend calls this API
+
+| Layer | File |
+| --- | --- |
+| HTTP paths | [frontend/src/features/projects/api/projects-api.ts](../frontend/src/features/projects/api/projects-api.ts) |
+| `fetch` wrapper | [frontend/src/lib/api-client.ts](../frontend/src/lib/api-client.ts) |
+| React Query | [frontend/src/features/projects/queries.ts](../frontend/src/features/projects/queries.ts) |
+| Mock implementation (optional) | [frontend/src/mocks/handlers/projects-handlers.ts](../frontend/src/mocks/handlers/projects-handlers.ts) |
+| Real implementation (you build) | [backend/](../backend/) per [backend/FILES.md](../backend/FILES.md) |
+
+Turn off MSW: `VITE_MOCK_API=false` and set `VITE_API_BASE_URL` — then only the rows above without “Mock” must work or the UI breaks (intentional when learning).
 
 **Build order:** [aws-dev-workflow.md](./aws-dev-workflow.md) · **Auth (Milestone 3):** requests will require `Authorization: Bearer <JWT>`; Lambdas scope data by Cognito `sub`. Until then, dev-only stacks may omit the authorizer—do not expose that configuration to the public internet.
 

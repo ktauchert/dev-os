@@ -33,6 +33,8 @@ Order for MVP (names may refine later):
 Discovery → Planning → Architecture → Development → Testing → Maintenance
 ```
 
+**Data model:** how `Project.sdlcPhase` and future work items relate — [data-model.md](./data-model.md).
+
 | Rule | Detail |
 | --- | --- |
 | **Create** | Always `Discovery`. No create-time phase picker. |

@@ -10,7 +10,7 @@ The frontend talks to a **REST API** over HTTP. **[MSW](https://mswjs.io/)** imp
 
 | Environment | Mock API |
 | --- | --- |
-| `npm run dev` | **On** by default (`MswProvider` + service worker in `public/`) |
+| `npm run dev` | **On** by default — Vite middleware (`vite-plugin-msw.ts`) serves handlers for `/api/*` |
 | `npm run dev` + real dev API | **Off** — `VITE_MOCK_API=false` and `VITE_API_BASE_URL` set |
 | `npm run build` / production | **Off** — `VITE_API_BASE_URL` points at API Gateway |
 | `npm test` | **On** via `msw/node` (`src/mocks/server.ts`) |
@@ -18,29 +18,29 @@ The frontend talks to a **REST API** over HTTP. **[MSW](https://mswjs.io/)** imp
 Override with `frontend/.env.local`:
 
 - `VITE_MOCK_API=false` — call dev API (needs `VITE_API_BASE_URL`)
-- `VITE_MOCK_API=true` — force mock in production builds (rare; demos only)
+- `VITE_MOCK_API=true` — force mock on (reserved)
+
+**Why Vite middleware instead of a browser Service Worker?** The SW path is the usual MSW browser setup, but it often calls `location.reload()` when a worker is registered but not controlling the page. That fought badly with Vite’s client boot. Same handlers; different host process.
+
+If an old `mockServiceWorker.js` is still registered, unregister it once (DevTools → Application → Service Workers).
 
 ---
 
 ## Layout
 
 ```text
-frontend/src/
-├── lib/api-client.ts              # fetch wrapper
-├── features/projects/api/         # projects-api.ts → HTTP
-├── features/projects/domain/      # buildNewProject, applyProjectPatch (shared rules)
-├── mocks/
-│   ├── db/projects-db.ts          # in-memory store (handlers + test reset)
-│   ├── handlers/projects-handlers.ts
-│   ├── browser.ts               # dev worker
-│   ├── server.ts                # Vitest
-│   └── enable-mocking.ts
-└── components/msw-provider.tsx  # await worker.start() before UI
+frontend/
+├── vite-plugin-msw.ts          # Connect middleware → MSW getResponse(handlers)
+├── src/mocks/
+│   ├── handlers/               # shared route handlers
+│   ├── db/                     # in-memory store
+│   ├── vite-bridge.ts          # handlers + getResponse for the Vite plugin
+│   └── server.ts               # Vitest (msw/node)
+├── src/lib/api-client.ts
+└── src/features/*/api/         # real HTTP clients (UI never imports mocks/)
 ```
 
-**Rule:** UI and TanStack Query only import `features/projects/api/*`, never the mock DB.
-
-Lambda should reuse **domain** rules from a shared package or copy the same shapes; MSW handlers mirror intended Lambda behavior.
+**Rule:** UI and TanStack Query only import `features/*/api/*`, never the mock DB.
 
 ---
 

@@ -23,7 +23,8 @@ The frontend is intentionally **not** tied to mocks: only `features/*/api` + `ap
 ## Source of truth
 
 ```text
-docs/api-*.md          ← contract (paths, status codes, JSON)
+docs/api-*.md          ← contract (paths, status codes, JSON) + narrative
+docs/api/openapi.yaml  ← same contract, OpenAPI 3.1 (tools, import, review)
         │
         ├── MSW handlers (dev + Vitest)
         ├── backend/ Lambda (dev then prod)
@@ -161,6 +162,8 @@ Same loop for work items, SDLC, AI, etc.:
 
 ## DynamoDB sketch (projects MVP)
 
+**Conceptual entities:** [data-model.md](./data-model.md). Below: **keys and queries** only.
+
 Until Milestone 3, a single-table row per project is enough. After auth, **partition by user**.
 
 **Option A — post–Milestone 3 (recommended for prod):**
@@ -179,7 +182,7 @@ Until Milestone 3, a single-table row per project is enough. After auth, **parti
 
 Replace with Option A when Cognito lands; do not use Option B in prod.
 
-Domain helpers today live in the frontend; copy or share a package into `backend/src/domain/` so MSW, Lambda, and tests stay aligned.
+Domain helpers live in **`@dev-os/domain`** (`packages/domain`); backend imports that package.
 
 ---
 
